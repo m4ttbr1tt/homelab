@@ -7,6 +7,10 @@ spec:
   selector:
     matchLabels:
       app: linkding
+  volumes:
+    - name: linkding-pv-storage
+      persistentVolumeClaim:
+        claimName: linkding-pv-claim
   template:
     metadata:
       labels:
@@ -17,3 +21,6 @@ spec:
           image: sissbruecker/linkding:1.31.0
           ports:
             - containerPort: 9090
+      volumeMounts:
+        - mountPath: "/usr/share/linkding"
+          name: linkding-pv-storage
