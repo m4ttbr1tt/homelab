@@ -1,46 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: linkding
+  name: linkding
 spec:
-    replicas: 1
-    selector:
-        matchLabels:
-            app: linkding
-    template:
-        metadata:
-            labels:
-                app: linkding
-        spec:
-            containers:
-                - name: linkding
-                  image: sissbruecker/linkding:1.31.0
-                  ports:
-                    - containerPort: 9090
-                  env:
-                    - name: ENC[AES256_GCM,data:6mM2HWAMEj/CE1K417e8Zwg=,iv:1rEFeT/e2/TiHyph0zMS1OETiHUjWlvaA8XWszi6fLA=,tag:lDAFd0gH9SVLBA4SKoPbZA==,type:str]
-                      value: ENC[AES256_GCM,data:N64NJQ==,iv:WbWpWarkWCMngiIZTFzznpXEQ23z0HefWY45Y3ErUFk=,tag:dsb3gZ5yDNpGlWNO25217g==,type:str]
-                    - name: ENC[AES256_GCM,data:HhIJsRkF7wFGGqXyUuF4wgjvIZFO,iv:hPfksEO209yuloKW3r9ys7lZ54GU1QXeUxq39UD0iUs=,tag:+t2D/elrBok2lY5DoGEoCQ==,type:str]
-                      value: ENC[AES256_GCM,data:exF++jDMksucS9l1m1RQ0VyqV8Azbp2hlFRjWbUWkRsbQk9EVkMN8sXa64scuSkxEQS0Y/WQ1/1u1Vo54KvqBA==,iv:hsfw3ITbT78URWPrJdDVXsqoCekdeIEZP6zCuE83Mh8=,tag:RVtAzcmcchrKTVWup1E5rg==,type:str]
-                  volumeMounts:
-                    - name: linkding-data
-                      mountPath: /etc/linkding/data
-            volumes:
-                - name: linkding-data
-                  persistentVolumeClaim:
-                    claimName: linkding-data-pvc
-sops:
-    age:
-        - recipient: age19whh9yju3k9yx6sl6vdsejmlqe647yt70wwwvmxr7w8ysd4htulq4z52zt
-          enc: |
-            -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBxQzFOeXBoSXFRU3hKZy9p
-            UXF5ZW1acDl3S1ZnSENvd013NlBWajJuUGl3CmxTbVdKTGdNUVc1bkh6UUFObWZP
-            cTIzSXlkMEMxNEdRdnE1bzJiL09iTzAKLS0tIDNtREZyNFZZU2RLTG5qV291UzRL
-            MzYwWVk1dXVyNlhvaTllWGpmUFpYNDQK9Jk+hOxBCv4byhCqrr95zfRwEazTxsvB
-            +E9UKDkR29T4Lc5FWgJSyQcxh4NvdNH3Y+AXZBVDcPiFBrk04spd9g==
-            -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-06-23T04:11:16Z"
-    mac: ENC[AES256_GCM,data:2YR8E0GrKSmRbw/jdbBpPpazQbm9uKERESt3V70hXzm2agZlTVd/g+HRzHZZdUXlo89UPaACHhYFoqawE0S3ox+AEqnkvyivjN6KAISxteoFTXklJ1Db2O4jzac7mytCiB53c0rihtfBoBDbnSxU4DBSgNyiUG64ICxl5DCA15M=,iv:pqtoKVyH/FwbqjxRwoyuveF9EFDd4np5yTyRK2sE3Xo=,tag:D18xgJjt8QpKKqbwgPfsGg==,type:str]
-    encrypted_regex: ^(env|stringData)$
-    version: 3.10.2
+  replicas: 1
+  selector:
+    matchLabels:
+      app: linkding
+  template:
+    metadata:
+      labels:
+        app: linkding
+    spec:
+      containers:
+        - name: linkding
+          image: sissbruecker/linkding:1.31.0
+          ports:
+            - containerPort: 9090
+          volumeMounts:
+            - name: linkding-data
+              mountPath: "/etc/linkding/data"
+          envFrom:
+            - secretRef:
+                name: linkding-container-env
+      volumes:
+        - name: linkding-data
+          persistentVolumeClaim:
+            claimName: linkding-data-pvc
