@@ -1,6 +1,19 @@
 {
-  "build": {    
+  "build": {
     "dockerfile": "../Dockerfile"
+  },
+  "onCreateCommand": "sudo chsh -s /usr/bin/zsh $USER",
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.profiles.linux": {
+      "zsh": {
+        "path": "/usr/bin/zsh"
+      }
+    }
+  },
+  "remoteEnv": {
+    "LANG": "en_US.UTF-8",
+    "GITHUB_TOKEN": "$GITHUB_TOKEN"
   },
   "postCreateCommand": "./scripts/setup"
 }
