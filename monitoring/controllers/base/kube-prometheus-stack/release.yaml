@@ -28,3 +28,5 @@ spec:
   values:
     grafana:
       adminPassword: somepassword # todo change
+      ingress:
+        enabled: true
