@@ -30,3 +30,7 @@ spec:
       adminPassword: somepassword # todo change
       ingress:
         enabled: true
+      tls:
+        - secretName: grafana-tls-secret
+          hosts:
+            - grafana.mattbritt.com
