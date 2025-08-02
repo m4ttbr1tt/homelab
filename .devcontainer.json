@@ -2,7 +2,6 @@
   "image": "mcr.microsoft.com/devcontainers/base:debian",
   "features": {
     "ghcr.io/jsburckhardt/devcontainer-features/flux:1": {}
-    "ghcr.io/jsburckhardt/devcontainer-features/flux:1": {}
   },
   "onCreateCommand": "sudo chsh -s /usr/bin/zsh $USER",
   "settings": {
