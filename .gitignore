@@ -1,2 +1,3 @@
 .envrc
 kubeconfig
+.devpod-internal/*
