@@ -6,7 +6,7 @@ metadata:
     storageclass.kubernetes.io/is-default-class: "true"
 provisioner: csi.san.synology.com
 parameters:
-  dsm: "192.168.1.61"
+  dsm: "192.168.1.60"
   location: "/volume1"
   protocol: iscsi
   csi.storage.k8s.io/fstype: ext4
